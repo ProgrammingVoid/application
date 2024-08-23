@@ -4,8 +4,8 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID }}
 on:
   pull-request:
-    branches:
-      - main
+    branches: [ "main" ]
+
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
