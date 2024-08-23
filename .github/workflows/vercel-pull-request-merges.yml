@@ -1,7 +1,7 @@
 # Name: GitHub Actions Vercel Pull Request Merges
-name: GitHub Actions Vercel Preview Deployment
+name: GitHub Actions Vercel Production Deployment
 on:
-  pull_request:
+  push:
     branches: [ "main" ]
 
 jobs:
