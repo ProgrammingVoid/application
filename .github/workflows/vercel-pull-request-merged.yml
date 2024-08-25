@@ -1,11 +1,11 @@
-# vercel-pull-request.yml
-name: Create vercel preview URL on pull request
+# vercel-merge.yml
+name: Deploy to vercel on merge
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
-  deploy-preview:
+  deploy-prod:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -14,12 +14,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: amondnet/vercel-action@v20
-        id: vercel-deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-args: '--prod'
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
-      - name: preview-url
+      - name: prod-url
         run: |
-          echo ${{ steps.vercel-deploy.outputs.preview-url }}
+          echo ${{ steps.vercel-deploy.outputs.prod-url }}
