@@ -1,26 +1,54 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import './index.css';
 
-function App() {
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import SignIn from "./pages/SignIn";
+import Dashboard from "./pages/Dashboard";
+import AddSensor from "./pages/AddSensor";
+import AddPlant from "./pages/AddPlant";
+import Info from "./pages/Info";
+
+function App(){
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home />,
+    },
+    {
+      path: '/login',
+      element: <Login />,
+    },
+    {
+      path: '/signin',
+      element: <SignIn />,
+    },
+    {
+      path: '/dashboard',
+      element: <Dashboard />,
+    },
+    {
+      path: '/addsensor',
+      element: <AddSensor />,
+    },
+    {
+      path: '/addplant',
+      element: <AddPlant />,
+    },
+    {
+      path: '/info',
+      element: <Info />,
+    },
+  ]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className="text-amber-300">
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        <React.StrictMode>
+          <RouterProvider router={router} />
+        </React.StrictMode>
+      </div>
   );
 }
 
