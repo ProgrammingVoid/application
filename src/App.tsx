@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import './index.css';
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Home from "./pages/Home";
@@ -12,7 +11,15 @@ import AddSensor from "./pages/AddSensor";
 import AddPlant from "./pages/AddPlant";
 import Info from "./pages/Info";
 
-function App(){
+function App() {
+  // Dynamically add the font link when the component mounts
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = 'https://fonts.cdnfonts.com/css/jsmath-cmti10';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+  }, []);
+
   const router = createBrowserRouter([
     {
       path: '/',
@@ -43,6 +50,7 @@ function App(){
       element: <Info />,
     },
   ]);
+
   return (
       <div className="App">
         <React.StrictMode>
