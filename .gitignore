@@ -156,3 +156,7 @@ yarn-debug.log*
 yarn-error.log*
 .vercel
 secrets/*
+
+# trucs basiques pk ils sont pas dans le template???
+.idea
+.\package-lock.json
