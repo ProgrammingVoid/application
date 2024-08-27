@@ -25,7 +25,7 @@ interface ButtonProps {
 const RoundedButton: React.FC<ButtonProps> = ({ text, textColor, bgColor, onClick }) => {
     return (
         <button
-            className={`btn px-8 py-1 rounded-lg text-center border border-black ${textColor} ${bgColor}`}
+            className={`btn px-2 -inline-block rounded-lg text-center border border-black ${textColor} ${bgColor}`}
             onClick={onClick}
         >
             {text}
