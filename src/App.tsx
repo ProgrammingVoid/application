@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import AddSensor from "./pages/AddSensor";
 import AddPlant from "./pages/AddPlant";
@@ -23,8 +23,8 @@ function App(){
       element: <Login />,
     },
     {
-      path: '/signin',
-      element: <SignIn />,
+      path: '/signup',
+      element: <SignUp />,
     },
     {
       path: '/dashboard',
