@@ -20,6 +20,20 @@ function App() {
     document.head.appendChild(link);
   }, []);
 
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css?family=Judson';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+  }, []);
+
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css?family=Jura';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+  }, []);
+
   const router = createBrowserRouter([
     {
       path: '/',
