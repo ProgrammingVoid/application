@@ -27,7 +27,7 @@ const SignInButton = () => {
     return (
         <RoundedButton
             text="Sign Up"
-            textColor="text-green-900"
+            textColor="text-[#205712]"
             bgColor="bg-gray-50"
             onClick={handleSignInClick}
         />

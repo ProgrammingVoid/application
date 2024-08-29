@@ -28,7 +28,7 @@ const LoginButton = () => {
         <RoundedButton
             text="Login"
             textColor="text-gray-50"
-            bgColor="bg-green-900"
+            bgColor="bg-[#205712]"
             onClick={handleLoginClick}
         />
     );
