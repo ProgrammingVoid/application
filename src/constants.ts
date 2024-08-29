@@ -16,6 +16,6 @@ export const API_URL = "http://localhost:4000";
 export const SENSOR_URL = "/sensors";
 export const PLANT_URL = "/plants";
 export const USER_URL = "/users";
-export const LOGIN_URL = "/login";
+export const LOGIN_URL = "/auth/login";
 export const REGISTER_URL = "/register";
 export const GLOBAL_PREFIX = "/api/v1";
