@@ -13,6 +13,8 @@
  *   - Rachel Tranchida
  */
 import React, {ChangeEventHandler, useState} from "react";
+import axios from "axios";
+import {API_URL, GLOBAL_PREFIX, PLANT_URL} from "../constants";
 
 interface PlantFormProps {
     plantTypeOptions: string[];
@@ -52,30 +54,16 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
         }
         const newPlant = {
             name: name,
-            plantType: plantType,
+            type: plantType,
             sensor: sensor,
             image: image,
         };
         console.log(newPlant);
 
-        try {
-            const response = await fetch("YOUR_API_ENDPOINT", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newPlant),
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            console.log('Plant created successfully:', data);
-        } catch (error) {
-            console.error('Error creating plant:', error);
-        }
+        axios.post(API_URL + GLOBAL_PREFIX + PLANT_URL, newPlant)
+            .then((response) => {
+                console.log(response)
+            }).catch(error => console.error('Error:', error));
     };
     return (
 
@@ -85,10 +73,10 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
 
                 <div>
                     <div>
-                        <label htmlFor="plantName"> Plant type</label>
+                        <label htmlFor="plantName" className={"pb-1"}> Plant type</label>
                     </div>
                     <select onChange={(e) => setPlantType(e.target.value)}
-                            className={"block w-full text-sm text-gray-900 border border-gray-300 h-7 rounded-lg cursor-pointer focus:outline-none bg-white"}>
+                            className={"block w-full text-sm text-gray-900 border border-gray-300 h-7 rounded-lg cursor-pointer focus:outline-none bg-white"} required>
                         {plantTypeOptions.map((option, index) => (
                             <option key={index}>{option}</option>
                         ))}
@@ -97,21 +85,21 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
                 </div>
                 <div>
                     <div>
-                        <label className={"block"}>
+                        <label className={"block pb-1"} >
                             Sensor
                         </label>
                     </div>
 
 
                     <select onChange={(e) => setSensor(e.target.value)}
-                            className={"block w-full text-sm h-7 border border-gray-300 rounded-lg cursor-pointer focus:outline-none bg-white"}>
+                            className={"block w-full text-sm h-7 border border-gray-300 rounded-lg cursor-pointer focus:outline-none bg-white"} required>
                         {sensorOptions.map((option, index) => (
                             <option key={index}>{option}</option>
                         ))}
                     </select>
                 </div>
                 <div>
-                    <label className={"block"}>
+                    <label className={"block pb-1"}>
                         Plant name</label>
                     <input value={name}
                            onChange={(e) => setName(e.target.value)} id="plantName" type="text"
@@ -121,7 +109,7 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
 
 
                 <div>
-                    <label className="block"
+                    <label className="block pb-1"
                            htmlFor="file_input">Upload picture</label>
                     <input onChange={handleFileChange}
 
