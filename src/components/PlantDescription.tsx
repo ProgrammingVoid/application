@@ -32,9 +32,9 @@ interface PlantDescriptionProps {
     image: string;
     name: string;
     description: string;
-    humidity: string;
-    light: string;
-    temperature: string;
+    humidity: string | null;
+    light: string | null;
+    temperature: string | null;
     // true if the humidity of the plant is good, false otherwise
     humidityOk: boolean;
     // true if the light of the plant is good, false otherwise
@@ -76,9 +76,9 @@ const PlantDescription: React.FC<PlantDescriptionProps> = ({
         }
     };
 
-    return (<div className="flex border-4 box-content w-fit h-fit items-center m-8 rounded-xl">
+    return (<div className="flex border-4 box-content w-full h-fit rounded-xl">
             <img src={image} alt={name} width="200" height="200" className="m-8 border-2"/>
-            <div className="flex flex-col m-8">
+            <div className="flex flex-col m-8 w-full justify-between">
                 <p className="text-3xl font-semibold text-left">{name}</p>
                 <p className="text-lg text-left my-3">{description}</p>
                 <div className="flex flex-row justify-between items-center">
