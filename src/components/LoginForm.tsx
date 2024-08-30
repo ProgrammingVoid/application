@@ -31,8 +31,9 @@ function LoginForm() {
         }
         axios.post(API_URL + GLOBAL_PREFIX + LOGIN_URL, user)
             .then((response ) => {
-                const token = response.data.token;
+                const token = response.data.access_token;
                 Cookies.set('token', token, { secure: true, sameSite: 'Strict' });
+                Cookies.get('token');
                 navigate('/dashboard');
             })
             .catch(error => console.error('Error:', error));
