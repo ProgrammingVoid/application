@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from 'react'
 import PlantForm from "../components/PlantForm";
 import axios from "axios";
-import {API_URL, GLOBAL_PREFIX, USER_URL} from "../constants";
+import {API_URL, GLOBAL_PREFIX} from "../constants";
 import Cookies from 'js-cookie';
 import AuthNavbar from "../components/AuthNavbar";
+import {SensorInfo} from "../types";
+
 function AddPlant() {
-    const user = 1;
-    const [sensorNames, setSensorNames] = useState<string[]>([]);
+    const [sensorInfos, setSensorInfos] = useState<SensorInfo[]>([]);
     useEffect(() => {
 
 
         const token = Cookies.get('token');
-        axios.get(API_URL + GLOBAL_PREFIX + USER_URL + '/' + user, { headers: {"Authorization" : `Bearer ${token}`} })
-            .then((response) => {console.log(response.data.sensors); const sensors = response.data.sensors;
-                const names = sensors.map((sensor: { name: string }) => sensor.name);
-                setSensorNames(names);});
+
+        axios.get(API_URL + GLOBAL_PREFIX + "/users/sensors" , { headers: {"Authorization" : `Bearer ${token}`} })
+            .then((response) => { const sensors = response.data;
+                const sensorInfo = sensors.map((sensor: { name: string, id: number}) => ({name: sensor.name, id: sensor.id}));
+                setSensorInfos(sensorInfo);});
 
     }, []);
     return (
@@ -22,7 +24,7 @@ function AddPlant() {
             <AuthNavbar/>
 
             <div className={"flex flex-row justify-center mt-24"}>
-            <PlantForm plantTypeOptions={['Monstera']} sensorOptions={sensorNames}/>
+                <PlantForm plantTypeOptions={['Monstera']} sensorOptions={sensorInfos}/>
             </div>
         </div>
     )

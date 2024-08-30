@@ -14,19 +14,24 @@
  */
 import React, {ChangeEventHandler, useState} from "react";
 import axios from "axios";
-import {API_URL, GLOBAL_PREFIX, PLANT_URL} from "../constants";
+import {API_URL, GLOBAL_PREFIX, PLANT_URL, USER_URL} from "../constants";
+import {SensorInfo} from "../types";
+import {useNavigate} from "react-router-dom";
+import Cookies from "js-cookie";
 
 interface PlantFormProps {
     plantTypeOptions: string[];
-    sensorOptions: string[];
+    sensorOptions: SensorInfo[];
 }
 
 
 function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [plantType, setPlantType] = useState(plantTypeOptions[0]);
-    const [sensor, setSensor] = useState(sensorOptions[0]);
+    const [selectedSensorId, setSelectedSensorId] = useState(0);
     const [selectedImage, setSelectedImage] = useState<File>();
+    const [remark, setRemark] = useState("");
     const fileToDataString = (file: File) => {
         return new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
@@ -55,14 +60,13 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
         const newPlant = {
             name: name,
             type: plantType,
-            sensor: sensor,
-            image: image,
+            sensor: selectedSensorId,
+            remark: remark,
         };
         console.log(newPlant);
-
-        axios.post(API_URL + GLOBAL_PREFIX + PLANT_URL, newPlant)
-            .then((response) => {
-                console.log(response)
+        axios.post(API_URL + GLOBAL_PREFIX + USER_URL + PLANT_URL, newPlant, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
+            .then((response) => { console.log(response);
+                navigate('/dashboard')
             }).catch(error => console.error('Error:', error));
     };
     return (
@@ -91,10 +95,13 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
                     </div>
 
 
-                    <select onChange={(e) => setSensor(e.target.value)}
+                    <select onChange={(e) => { const selectedSensor = sensorOptions.find(sensor => sensor.name === e.target.value);
+                        if (selectedSensor) {
+                            setSelectedSensorId(selectedSensor.id);
+                        }}}
                             className={"block w-full text-sm h-7 border border-gray-300 rounded-lg cursor-pointer focus:outline-none bg-white"} required>
                         {sensorOptions.map((option, index) => (
-                            <option key={index}>{option}</option>
+                            <option key={index}>{option.name}</option>
                         ))}
                     </select>
                 </div>
@@ -116,6 +123,13 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
                            className="block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50  focus:outline-none h-7"
                            id="file_input" type="file"/>
 
+                </div>
+                <div>
+                    <label className={"block pb-1"}>
+                        Remark</label>
+                    <textarea onChange={(e) => setRemark(e.target.value)} id="remark"
+                              className={"block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none bg-white h-16 placeholder:p-1 p-1"}
+                              required/>
                 </div>
 
                 <button type="submit"
