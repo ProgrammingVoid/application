@@ -18,8 +18,7 @@ import {useNavigate} from "react-router-dom";
 import AuthNavbar from "../components/AuthNavbar";
 import RoundedButton from "../components/RoundedButton";
 import PlantDescription from "../components/PlantDescription";
-
-const userId = 1;
+import Cookies from 'js-cookie';
 
 interface Plant {
     id: number;
@@ -40,9 +39,11 @@ function Dashboard() {
         navigate('/addplant');
     }
 
+    const token = Cookies.get('token');
+
     const getPlants = async () => {
         try {
-            const response = await axios.get(`http://localhost:4000/api/v1/users/${userId}`);
+            const response = await axios.get(`http://localhost:4000/api/v1/users/plants`, {headers: {Authorization: `Bearer ${token}`}});
             const userData = response.data;
             setPlants(userData.plants);
         } catch (error) {
