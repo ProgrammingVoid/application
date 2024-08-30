@@ -12,9 +12,9 @@
  *   - Quentin Surdez
  *   - Rachel Tranchida
  */
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuthNavbar from "../components/AuthNavbar";
 import RoundedButton from "../components/RoundedButton";
 import PlantDescription from "../components/PlantDescription";
@@ -41,19 +41,19 @@ function Dashboard() {
 
     const token = Cookies.get('token');
 
-    const getPlants = async () => {
+    const getPlants = useCallback(async () => {
         try {
-            const response = await axios.get(`http://localhost:4000/api/v1/users/plants`, {headers: {Authorization: `Bearer ${token}`}});
+            const response = await axios.get(`http://localhost:4000/api/v1/users/plants`, { headers: { Authorization: `Bearer ${token}` } });
             const userData = response.data;
             setPlants(userData.plants);
         } catch (error) {
             console.error(error);
         }
-    }
+    }, [token]);
 
     useEffect(() => {
         getPlants().then(r => console.log(r));
-    }, []);
+    }, [getPlants]);
 
     return (
         <div className="flex flex-col">
