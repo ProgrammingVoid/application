@@ -16,7 +16,7 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import RoundedButton from "./RoundedButton";
-import {PlantState} from "../PlantState";
+import {Types} from "../types";
 
 import {LuDroplet} from "react-icons/lu";
 import {FiSun} from "react-icons/fi";
@@ -41,7 +41,7 @@ interface PlantDescriptionProps {
     lightOk: boolean;
     // true if the temperature of the room is good, false otherwise
     temperatureOk: boolean;
-    plantState: PlantState;
+    plantState: Types;
 }
 
 const PlantDescription: React.FC<PlantDescriptionProps> = ({
@@ -65,11 +65,11 @@ const PlantDescription: React.FC<PlantDescriptionProps> = ({
     // get the icon corresponding to the plant state
     const getPlantStateIcon = () => {
         switch (plantState) {
-            case PlantState.HEALTHY:
+            case Types.HEALTHY:
                 return <PiSmiley />;
-            case PlantState.KEEP_AN_EYE:
+            case Types.KEEP_AN_EYE:
                 return <PiSmileyMeh />;
-            case PlantState.NEEDS_ATTENTION:
+            case Types.NEEDS_ATTENTION:
                 return <PiSmileySad />;
             default:
                 return null;

@@ -14,7 +14,7 @@
  */
 
 import React, {useState} from "react";
-import {API_URL, GLOBAL_PREFIX, SENSOR_URL} from "../constants";
+import {API_URL, GLOBAL_PREFIX, SENSOR_URL, USER_URL} from "../constants";
 import {useNavigate} from "react-router-dom";
 
 
@@ -34,7 +34,7 @@ function SensorForm() {
 
         };
 
-        await fetch(API_URL + GLOBAL_PREFIX + SENSOR_URL, {
+        await fetch(API_URL + GLOBAL_PREFIX + USER_URL + SENSOR_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
