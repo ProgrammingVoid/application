@@ -12,7 +12,7 @@
  *   - Quentin Surdez
  *   - Rachel Tranchida
  */
-import React, {ChangeEventHandler, useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import {API_URL, GLOBAL_PREFIX, PLANT_URL, USER_URL} from "../constants";
 import {SensorInfo} from "../types";
@@ -30,17 +30,17 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
     const [name, setName] = useState("");
     const [plantType, setPlantType] = useState(plantTypeOptions[0]);
     const [selectedSensorId, setSelectedSensorId] = useState(0);
-    const [selectedImage, setSelectedImage] = useState<File>();
+    // const [selectedImage, setSelectedImage] = useState<File>();
     const [remark, setRemark] = useState("");
-    const fileToDataString = (file: File) => {
-        return new Promise<string>((resolve, reject) => {
+    // const fileToDataString = (file: File) => {
+        /*return new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onerror = (error) => reject(error);
             reader.onload = () => resolve(reader.result as string);
         });
     };
-    const handleFileChange: ChangeEventHandler<HTMLInputElement> = async (
+     const handleFileChange: ChangeEventHandler<HTMLInputElement> = async (
         event
     ) => {
         const file = event.target.files as FileList;
@@ -49,14 +49,14 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
             return;
         }
 
-    };
+    }; */
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        let image = "";
+       /* let image = "";
         if (selectedImage) {
             image = await fileToDataString(selectedImage);
-        }
+        } */
         const newPlant = {
             name: name,
             type: plantType,
@@ -118,7 +118,7 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
                 <div>
                     <label className="block pb-1"
                            htmlFor="file_input">Upload picture</label>
-                    <input onChange={handleFileChange}
+                    <input /* onChange={handleFileChange}*/
 
                            className="block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50  focus:outline-none h-7"
                            id="file_input" type="file"/>
