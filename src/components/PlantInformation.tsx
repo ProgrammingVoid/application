@@ -18,21 +18,21 @@ import Conditions from "./Conditions";
 
 interface PlantInformationProps {
     // name of the plant
-    name: string;
+    name: string | undefined | null;
     // type of the plant
-    type: string;
+    type: string | undefined | null;
     // humidity of the plant
-    humidity: string;
+    humidity: string | undefined | null;
     // light of the plant
-    light: string;
+    light: string | undefined | null;
     // temperature of the plant
-    temperature: string;
+    temperature: string | undefined | null;
     // optimal humidity of the plant
-    optimalHumidity: string;
+    optimalHumidity: string | undefined | null;
     // optimal light of the plant
-    optimalLight: string;
+    optimalLight: string | undefined | null;
     // optimal temperature of the plant
-    optimalTemperature: string;
+    optimalTemperature: string | undefined | null;
 }
 
 const PlantInformation: React.FC<PlantInformationProps> = ({
@@ -46,7 +46,7 @@ const PlantInformation: React.FC<PlantInformationProps> = ({
                                                                optimalTemperature
                                                            }) => {
     return (
-        <div className="flex flex-col items-start justify-between">
+        <div className="flex flex-col items-start justify-between w-full">
             <h1 className="text-5xl m-2 italic" style={{fontFamily: 'judson'}}>
                 {name} ({type})
             </h1>

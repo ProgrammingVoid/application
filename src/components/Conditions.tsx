@@ -20,13 +20,13 @@ import {FiSun} from "react-icons/fi";
 import {FaTemperatureHalf} from "react-icons/fa6";
 
 interface ConditionsProps {
-    title: string;
+    title: string | undefined | null;
     // humidity of the plant
-    humidity: string;
+    humidity: string | undefined | null;
     // light of the plant
-    light: string;
+    light: string | undefined | null;
     // temperature of the plant
-    temperature: string;
+    temperature: string | undefined | null;
 }
 
 const Conditions: React.FC<ConditionsProps> = ({
@@ -36,9 +36,9 @@ const Conditions: React.FC<ConditionsProps> = ({
                                                    temperature
                                                }) => {
     return (
-        <div className="flex flex-col items-start justify-between float-left m-2">
+        <div className="flex flex-col items-start justify-between float-left w-full">
             <h2 className="text-3xl mb-2" style={{fontFamily: 'judson'}}>{title}</h2>
-            <div className="flex flex-row items-center justify-between gap-20 float-left">
+            <div className="flex flex-row items-center justify-between float-left w-full">
                 <div className="flex items-center text-2xl">
                     <LuDroplet className="text-4xl"/>
                     <p className="ml-2 text-2xl" style={{fontFamily: 'jura'}}>{humidity}%</p>
