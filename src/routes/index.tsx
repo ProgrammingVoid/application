@@ -24,6 +24,7 @@ import AddPlant from "../pages/AddPlant";
 import Info from "../pages/Info";
 import Login from "../pages/Login";
 import Logout from "../pages/Logout";
+import Sensors from "../pages/Sensors";
 
 const Routes = () => {
     const { token } = useAuth();
@@ -57,6 +58,10 @@ const Routes = () => {
                 {
                     path: '/info',
                     element: <Info />,
+                },
+                {
+                    path: 'sensors',
+                    element : <Sensors />
                 },
                 {
                     path: '/logout',
