@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import PlantForm from "../components/PlantForm";
 import axios from "axios";
-import {API_URL, USER_PLANTS_URL, USER_SENSORS_URL} from "../constants";
-import Cookies from 'js-cookie';
+import {API_URL, USER_SENSORS_URL} from "../constants";
 import AuthNavbar from "../components/AuthNavbar";
 import {SensorInfo} from "../types";
 

@@ -14,7 +14,7 @@
  */
 import React, {useState} from "react";
 import axios from "axios";
-import {API_URL, PLANT_URL, USER_PLANTS_URL, USER_URL} from "../constants";
+import {API_URL,  USER_PLANTS_URL} from "../constants";
 import {SensorInfo} from "../types";
 import {useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";

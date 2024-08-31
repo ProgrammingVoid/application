@@ -13,7 +13,6 @@
  *   - Rachel Tranchida
  */
 import React, {useState} from "react";
-import Cookies from 'js-cookie';
 import axios from "axios";
 import {API_URL,  LOGIN_URL} from "../constants";
 import {useNavigate} from "react-router-dom";
