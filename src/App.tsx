@@ -1,15 +1,8 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import './index.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-import Dashboard from "./pages/Dashboard";
-import AddSensor from "./pages/AddSensor";
-import AddPlant from "./pages/AddPlant";
-import Info from "./pages/Info";
+import AuthProvider from "./provider/authProvider";
+import Routes from "./routes";
 
 function App() {
   // Dynamically add the font link when the component mounts
@@ -34,44 +27,12 @@ function App() {
     document.head.appendChild(link);
   }, []);
 
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Home />,
-    },
-    {
-      path: '/login',
-      element: <Login />,
-    },
-    {
-      path: '/signup',
-      element: <SignUp />,
-    },
-    {
-      path: '/dashboard',
-      element: <Dashboard />,
-    },
-    {
-      path: '/addsensor',
-      element: <AddSensor />,
-    },
-    {
-      path: '/addplant',
-      element: <AddPlant />,
-    },
-    {
-      path: '/info',
-      element: <Info />,
-    },
-  ]);
-
   return (
-      <div className="App">
-        <React.StrictMode>
-          <RouterProvider router={router} />
-        </React.StrictMode>
-      </div>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
   );
+
 }
 
 export default App;

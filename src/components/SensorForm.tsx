@@ -14,8 +14,9 @@
  */
 
 import React, {useState} from "react";
-import {API_URL, GLOBAL_PREFIX, SENSOR_URL, USER_URL} from "../constants";
+import {API_URL, USER_SENSORS_URL} from "../constants";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 
 function SensorForm() {
@@ -34,21 +35,10 @@ function SensorForm() {
 
         };
 
-        await fetch(API_URL + GLOBAL_PREFIX + USER_URL + SENSOR_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newSensor),
-        })
-            .then(response => response.json())
-            .then((response) => {
-                const id = response.raw[0].id;
-                console.log(response.raw);
-                alert(`Sensor created with ID: ${id}`);
-                navigate('/dashboard');
-            })
+        axios.post(API_URL + USER_SENSORS_URL, newSensor)
+            .then(() => navigate('/sensors'))
             .catch(error => console.error('Error:', error));
+
 
     };
     return (
