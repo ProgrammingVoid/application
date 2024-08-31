@@ -15,6 +15,7 @@
 
 import React, {useState} from "react";
 import axios from "axios";
+import {API_URL, USER_URL} from "../constants";
 
 function SignUpForm() {
     const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ function SignUpForm() {
 
         console.log(JSON.stringify(newUser));
 
-        axios.post("http://localhost:4000/api/v1/users", newUser)
+        axios.post(API_URL + USER_URL, newUser)
             .then((response: any) => console.log(response))
             .catch((error: any) => console.error('Error:', error));
     };

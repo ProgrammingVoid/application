@@ -14,7 +14,7 @@
  */
 import React, {useState} from "react";
 import axios from "axios";
-import {API_URL, GLOBAL_PREFIX, PLANT_URL, USER_URL} from "../constants";
+import {API_URL,  USER_PLANTS_URL} from "../constants";
 import {SensorInfo} from "../types";
 import {useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
@@ -64,9 +64,9 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
             remark: remark,
         };
         console.log(newPlant);
-        axios.post(API_URL + GLOBAL_PREFIX + USER_URL + PLANT_URL, newPlant, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
-            .then((response) => { console.log(response);
-                navigate('/dashboard')
+        axios.post(API_URL + USER_PLANTS_URL, newPlant, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
+            .then((r) => {
+                navigate('/plants');
             }).catch(error => console.error('Error:', error));
     };
     return (

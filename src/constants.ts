@@ -12,10 +12,12 @@
  *   - Quentin Surdez
  *   - Rachel Tranchida
  */
-export const API_URL = "http://localhost:4000";
-export const SENSOR_URL = "/sensors";
+
+export const SERVER_URL = "http://localhost:4000";
+export const API_URL = SERVER_URL + "/api/v1";
 export const PLANT_URL = "/plants";
 export const USER_URL = "/users";
+export const USER_SENSORS_URL = USER_URL + "/sensors";
+export const USER_PLANTS_URL = USER_URL + PLANT_URL;
 export const LOGIN_URL = "/auth/login";
 export const REGISTER_URL = "/register";
-export const GLOBAL_PREFIX = "/api/v1";

@@ -2,7 +2,7 @@
  * Project Name: PlantKeeper
  *
  * @created 29/08/2024
- * @file Dashboard.tsx
+ * @file Plants.tsx
  * @version 1.0.0
  * @see https://github.com/Plant-keeper
  *
@@ -19,6 +19,7 @@ import AuthNavbar from "../components/AuthNavbar";
 import RoundedButton from "../components/RoundedButton";
 import PlantDescription from "../components/PlantDescription";
 import Cookies from 'js-cookie';
+import {API_URL, USER_PLANTS_URL} from "../constants";
 
 interface Plant {
     id: number;
@@ -31,7 +32,7 @@ interface Plant {
     updatedAt: string;
 }
 
-function Dashboard() {
+function Plants() {
     const [plants, setPlants] = useState<Plant[]>([]);
     const navigate = useNavigate();
 
@@ -39,20 +40,14 @@ function Dashboard() {
         navigate('/addplant');
     }
 
-    const token = Cookies.get('token');
-
-    const getPlants = useCallback(async () => {
-        try {
-            const response = await axios.get(`http://localhost:4000/api/v1/users/plants`, { headers: { Authorization: `Bearer ${token}` } });
-            const userData = response.data;
-            setPlants(userData.plants);
-        } catch (error) {
-            console.error(error);
-        }
-    }, [token]);
+    const getPlants = useCallback(() => {
+        axios.get(API_URL + USER_PLANTS_URL, { headers: { Authorization: `Bearer ${Cookies.get('token')}` } })
+            .then((response) => {const userData = response.data; setPlants(userData);})
+            .catch( error => console.error(error));
+    }, []);
 
     useEffect(() => {
-        getPlants().then(r => console.log(r));
+        getPlants();
     }, [getPlants]);
 
     return (
@@ -79,4 +74,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard;
+export default Plants;

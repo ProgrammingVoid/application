@@ -13,15 +13,15 @@
  *   - Rachel Tranchida
  */
 import React, {useState} from "react";
-import Cookies from 'js-cookie';
 import axios from "axios";
-import {API_URL, GLOBAL_PREFIX, LOGIN_URL} from "../constants";
+import {API_URL,  LOGIN_URL} from "../constants";
 import {useNavigate} from "react-router-dom";
-
+import {useAuth} from "../provider/authProvider";
 
 function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const {setToken} = useAuth();
     const navigate = useNavigate();
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
@@ -29,13 +29,11 @@ function LoginForm() {
             email: email,
             password: password,
         }
-        axios.post(API_URL + GLOBAL_PREFIX + LOGIN_URL, user)
+        axios.post(API_URL + LOGIN_URL, user)
             .then((response ) => {
                 const token = response.data.access_token;
-                Cookies.set('token', token, { secure: true, sameSite: 'Strict' });
-                Cookies.get('token');
-                navigate('/dashboard');
-            })
+                setToken(token);
+            }).then(() => navigate('/plants'))
             .catch(error => console.error('Error:', error));
 
     }
