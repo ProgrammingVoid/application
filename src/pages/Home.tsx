@@ -17,12 +17,10 @@ import NotAuthNavbar from "../components/NotAuthNavbar";
 import AuthNavbar from "../components/AuthNavbar";
 import Cookies from "js-cookie";
 
-const token = Cookies.get('token');
-
 function Home() {
     return (
         <div className="h-full">
-            {token ? <AuthNavbar /> : <NotAuthNavbar />}
+            {Cookies.get('token') ? <AuthNavbar /> : <NotAuthNavbar />}
             <div className="flex flex-col justify-center items-center min-h-screen">
                 <h1 className="text-8xl font-bold text-[#205712] mb-10">PlantKeeper</h1>
                 <h3 className="text-3xl italic">Watch your plants thrive forever</h3>
