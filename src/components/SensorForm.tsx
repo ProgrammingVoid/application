@@ -17,6 +17,7 @@ import React, {useState} from "react";
 import {API_URL, USER_SENSORS_URL} from "../constants";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 
 function SensorForm() {
@@ -35,7 +36,7 @@ function SensorForm() {
 
         };
 
-        axios.post(API_URL + USER_SENSORS_URL, newSensor)
+        axios.post(API_URL + USER_SENSORS_URL, newSensor, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
             .then(() => navigate('/sensors'))
             .catch(error => console.error('Error:', error));
 

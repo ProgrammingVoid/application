@@ -4,14 +4,13 @@ import axios from "axios";
 import {API_URL, USER_SENSORS_URL} from "../constants";
 import AuthNavbar from "../components/AuthNavbar";
 import {SensorInfo} from "../types";
+import Cookies from "js-cookie";
 
 function AddPlant() {
     const [sensorInfos, setSensorInfos] = useState<SensorInfo[]>([]);
     useEffect(() => {
 
-
-
-        axios.get(API_URL + USER_SENSORS_URL )
+        axios.get(API_URL + USER_SENSORS_URL, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
             .then((response) => { const sensors = response.data;
                 const sensorInfo = sensors.map((sensor: { name: string, id: number}) => ({name: sensor.name, id: sensor.id}));
                 setSensorInfos(sensorInfo);});
