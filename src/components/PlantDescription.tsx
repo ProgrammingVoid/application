@@ -29,6 +29,7 @@ import { PiSmileyMeh } from "react-icons/pi";
 import { PiSmileySad } from "react-icons/pi";
 
 interface PlantDescriptionProps {
+    plantId: number,
     image: string;
     name: string;
     description: string;
@@ -45,6 +46,7 @@ interface PlantDescriptionProps {
 }
 
 const PlantDescription: React.FC<PlantDescriptionProps> = ({
+                                                               plantId,
                                                                image,
                                                                name,
                                                                description,
@@ -59,7 +61,7 @@ const PlantDescription: React.FC<PlantDescriptionProps> = ({
 
     const navigate = useNavigate();
     const handleMoreInfoClick = () => {
-        navigate("/info");
+        navigate("/info", {state: {plantId: plantId}});
     };
 
     // get the icon corresponding to the plant state

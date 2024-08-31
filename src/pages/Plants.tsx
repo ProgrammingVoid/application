@@ -66,7 +66,7 @@ function Plants() {
                         <PlantDescription image={require("../figures/calathea.png")} name={plant.name}
                                           description={plant.remark} plantState={0} humidity={plant.humidity}
                                           light={plant.light} temperature={plant.temperature} temperatureOk={true}
-                                          humidityOk={true} lightOk={true}></PlantDescription>
+                                          humidityOk={true} lightOk={true} plantId={plant.id}></PlantDescription>
                     </div>
                 ))}
             </div>
