@@ -13,11 +13,27 @@
  *   - Rachel Tranchida
  */
 import React from "react";
+import AuthNavbar from "../components/AuthNavbar";
+import UpdateSensorForm from "../components/UpdateSensorForm";
+import {useLocation} from "react-router-dom";
 
 function UpdateSensor() {
-    return (<div>
-        <h1>Update Sensor</h1>
-    </div>)
+
+    const location = useLocation();
+    const sensorId = location.state.sensorId;
+
+    return (
+        <div className="min-h-screen w-full flex flex-col items-center">
+            <div className="w-full">
+                <AuthNavbar/>
+            </div>
+            <div className="flex flex-col items-center justify-center flex-grow min-h-0">
+                <div className="m-14 flex flex-col justify-center items-center w-full h-full">
+                    <UpdateSensorForm sensorId={sensorId}></UpdateSensorForm>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default UpdateSensor;

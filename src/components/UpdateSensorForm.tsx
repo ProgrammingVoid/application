@@ -1,6 +1,19 @@
-// src/components/UpdateSensorForm.tsx
+/**
+ * Project Name: PlantKeeper
+ *
+ * @created 01-09-2024
+ * @file UpdateSensorForm.tsx
+ * @version 1.0.0
+ * @see https://github.com/Plant-keeper
+ *
+ * @authors
+ *   - Rafael Dousse
+ *   - Eva Ray
+ *   - Quentin Surdez
+ *   - Rachel Tranchida
+ */
 import React, { useState, useEffect } from "react";
-import {API_URL, SENSOR_URL, USER_SENSORS_URL} from "../constants";
+import {API_URL, SENSOR_URL} from "../constants";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -31,7 +44,7 @@ const UpdateSensorForm: React.FC<UpdateSensorFormProps> = ({ sensorId }) => {
                 console.error('Error fetching sensor data:', error);
                 setLoading(false);
             });
-    }, [sensorId]);
+    }, [sensorId, remark]);
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
