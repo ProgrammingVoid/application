@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import PlantForm from "../components/PlantForm";
 import axios from "axios";
-import {API_URL, GENERAL_PLANTS_URL, USER_SENSORS_URL} from "../constants";
+import {API_URL, GENERAL_PLANTS_URL, USER_SENSOR_LINKED_PLANTS} from "../constants";
 import AuthNavbar from "../components/AuthNavbar";
-import {GeneralPlant, SensorInfo} from "../types";
+import {GeneralPlant, SensorInfo, SensorLinkedToPlant} from "../types";
 import Cookies from "js-cookie";
 
 function AddPlant() {
@@ -12,8 +12,12 @@ function AddPlant() {
 
     useEffect(() => {
 
-        axios.get(API_URL + USER_SENSORS_URL, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
-            .then((response) => setSensorInfos(response.data));
+        axios.get(API_URL + USER_SENSOR_LINKED_PLANTS, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
+            .then((response) => {
+                const sensors = response.data
+                console.log(sensors)
+                setSensorInfos(sensors.filter((sensor: SensorLinkedToPlant) => sensor.plantId === null).map((sensor: SensorLinkedToPlant) => ({id: sensor.sensorId, name: sensor.sensorName})));
+            })
         axios.get(API_URL + GENERAL_PLANTS_URL)
             .then((response) => setPlantTypes(response.data))
             .catch(error => console.error(error));
