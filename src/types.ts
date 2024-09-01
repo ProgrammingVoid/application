@@ -28,13 +28,8 @@ export interface Sensor {
  */
 export interface Plant {
     id: number;
-    type: string;
-    name: string;
-    image: string;
     createdAt: string;
     updatedAt: string;
-    remark: string;
-    sensor: Sensor;
 }
 
 /**
@@ -52,12 +47,14 @@ export interface GeneralPlant extends Plant {
 
 }
 
-
 /**
  * UserPlant interface made to match the API response when fetching a user plant
  */
 export interface UserPlant extends Plant {
+    generalPlantId: number;
     remark: string;
+    name: string
+    sensor: Sensor;
 }
 
 /**
