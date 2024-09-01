@@ -35,7 +35,7 @@ function UpdatePlant() {
             .then((response) => {
                 const sensors = response.data
                 console.log(sensors)
-                setSensorInfos(sensors.filter((sensor: SensorLinkedToPlant) => sensor.plantId === null || sensor.plantId == plantId).map((sensor: SensorLinkedToPlant) => ({
+                setSensorInfos(sensors.filter((sensor: SensorLinkedToPlant) => sensor.plantId === null || sensor.plantId === plantId).map((sensor: SensorLinkedToPlant) => ({
                     id: sensor.sensorId,
                     name: sensor.sensorName
                 })));
@@ -43,7 +43,7 @@ function UpdatePlant() {
         axios.get(API_URL + GENERAL_PLANTS_URL)
             .then((response) => setPlantTypes(response.data))
             .catch(error => console.error(error));
-    }, []);
+    }, [plantId]);
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center">
