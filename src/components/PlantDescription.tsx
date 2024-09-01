@@ -22,11 +22,14 @@ import {LuDroplet} from "react-icons/lu";
 import {FiSun} from "react-icons/fi";
 import {FaTemperatureHalf} from "react-icons/fa6";
 // smiling smiley
-import { PiSmiley } from "react-icons/pi";
+import {PiSmiley} from "react-icons/pi";
 // straight face smiley
-import { PiSmileyMeh } from "react-icons/pi";
+import {PiSmileyMeh} from "react-icons/pi";
 // frwoning smiley
-import { PiSmileySad } from "react-icons/pi";
+import {PiSmileySad} from "react-icons/pi";
+import {UpdateButton} from "./UpdateButton";
+import {DeleteButton} from "./DeleteButton";
+import {API_URL, PLANT_URL} from "../constants";
 
 interface PlantDescriptionProps {
     plantId: number,
@@ -63,39 +66,52 @@ const PlantDescription: React.FC<PlantDescriptionProps> = ({
     const handleMoreInfoClick = () => {
         navigate("/info", {state: {plantId: plantId}});
     };
+    const handleUpdateClick = () => {
+        navigate("/updateplant", {state: {plantId: plantId}});
+    }
 
     // get the icon corresponding to the plant state
     const getPlantStateIcon = () => {
         switch (plantState) {
             case Types.HEALTHY:
-                return <PiSmiley />;
+                return <PiSmiley/>;
             case Types.KEEP_AN_EYE:
-                return <PiSmileyMeh />;
+                return <PiSmileyMeh/>;
             case Types.NEEDS_ATTENTION:
-                return <PiSmileySad />;
+                return <PiSmileySad/>;
             default:
                 return null;
         }
     };
 
-    return (<div className="flex border-4 box-content w-full h-fit rounded-xl">
-            <img src={image} alt={name} width="200" height="200" className="m-8 border-2"/>
+    return (
+        <div className="flex border-4 box-content w-full h-fit rounded-xl">
+            <img src={image} alt={name} width="200" height="200" className="m-8 border-2" />
             <div className="flex flex-col m-8 w-full justify-between">
-                <p className="text-3xl font-semibold text-left">{name}</p>
+                <div className="flex flex-row items-center justify-between">
+                    <p className="text-3xl font-semibold text-left">{name}</p>
+                    <div className="flex flex-row items-center text-3xl ml-auto">
+                        <div className="mr-3">
+                            <UpdateButton handleUpdate={handleUpdateClick} />
+                        </div>
+                        <div>
+                            <DeleteButton endpoint={API_URL + PLANT_URL + "/" + plantId} />
+                        </div>
+                    </div>
+                </div>
                 <p className="text-lg text-left my-3">{description}</p>
                 <div className="flex flex-row justify-between items-center">
-                    <RoundedButton text="More info" textColor="text-black" bgColor="bg-gray-300"
-                                   onClick={handleMoreInfoClick}></RoundedButton>
+                    <RoundedButton text="More info" textColor="text-black" bgColor="bg-gray-300" onClick={handleMoreInfoClick} />
                     <div className="flex flex-row items-center text-2xl">
-                        <LuDroplet className={`mx-2 ${humidityOk ? 'text-black' : 'text-red-500'}`}/>
+                        <LuDroplet className={`mx-2 ${humidityOk ? 'text-black' : 'text-red-500'}`} />
                         <p>{humidity}%</p>
                     </div>
                     <div className="flex flex-row items-center text-2xl">
-                        <FiSun className={`mx-2 ${lightOk ? 'text-black' : 'text-red-500'}`}/>
+                        <FiSun className={`mx-2 ${lightOk ? 'text-black' : 'text-red-500'}`} />
                         <p>{light} UV</p>
                     </div>
                     <div className="flex flex-row items-center text-2xl">
-                        <FaTemperatureHalf className={`mx-2 ${temperatureOk ? 'text-black' : 'text-red-500'}`}/>
+                        <FaTemperatureHalf className={`mx-2 ${temperatureOk ? 'text-black' : 'text-red-500'}`} />
                         <p>{temperature}°</p>
                     </div>
                     <div className="flex flex-row items-center text-5xl">
@@ -104,7 +120,6 @@ const PlantDescription: React.FC<PlantDescriptionProps> = ({
                 </div>
             </div>
         </div>
-
     );
 }
 

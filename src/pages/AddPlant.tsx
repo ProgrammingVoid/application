@@ -19,11 +19,14 @@ function AddPlant() {
             .catch(error => console.error(error));
     }, []);
     return (
+
         <div>
             <AuthNavbar/>
 
             <div className={"flex flex-row justify-center mt-24"}>
                 <PlantForm plantTypeOptions={plantTypes} sensorOptions={sensorInfos}/>
+
+ 
             </div>
         </div>
     )
