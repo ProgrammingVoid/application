@@ -20,7 +20,7 @@ import {Link} from "react-router-dom";
 import {SensorLinkedToPlant} from "../types";
 import {UpdateButton} from "./UpdateButton";
 import {DeleteButton} from "./DeleteButton";
-import {API_URL, PLANT_URL, SENSOR_URL} from "../constants";
+import {API_URL, SENSOR_URL} from "../constants";
 import {useNavigate} from "react-router-dom";
 
 interface sensorProps {
