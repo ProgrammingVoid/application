@@ -52,6 +52,7 @@ export interface GeneralPlant extends Plant {
 
 }
 
+
 /**
  * UserPlant interface made to match the API response when fetching a user plant
  */

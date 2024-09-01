@@ -12,7 +12,7 @@
  *   - Quentin Surdez
  *   - Rachel Tranchida
  */
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {API_URL, USER_PLANTS_URL} from "../constants";
 import {GeneralPlant, SensorInfo} from "../types";
@@ -32,6 +32,10 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
     const [selectedSensorId, setSelectedSensorId] = useState<number | null>(null);
     const [remark, setRemark] = useState("");
 
+    useEffect(() => {
+        setPlantType(plantTypeOptions.length > 0 ? plantTypeOptions[0].id : null);
+        setSelectedSensorId(sensorOptions.length > 0 ? sensorOptions[0].id : null);
+    }, [plantTypeOptions, sensorOptions]);
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
@@ -44,7 +48,7 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
         };
         console.log(newPlant);
         axios.post(API_URL + USER_PLANTS_URL, newPlant, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
-            .then((r) => {
+            .then(() => {
                 navigate('/plants');
             }).catch(error => console.error('Error:', error));
 
@@ -60,12 +64,12 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
                     <div>
                         <label htmlFor="plantName" className={"pb-1"}> Plant type</label>
                     </div>
-                    <select onChange={(e) => setPlantType(parseInt(e.target.value))}
+                    <select  onChange={(e) => setPlantType(parseInt(e.target.value))}
                             className={"block w-full text-sm text-gray-900 border border-gray-300 h-7 rounded-lg cursor-pointer focus:outline-none bg-white"} required>
                         {plantTypeOptions.map((option) => (
-                            <option key={option.id} value={option.id}>{option.type}</option>
+                            <option key={option.id}>{option.type}</option>
                         ))}
-                    </select>
+                    </select >
 
                 </div>
                 <div>
@@ -79,7 +83,7 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
                     <select onChange={(e) => setSelectedSensorId(parseInt(e.target.value))}
                             className={"block w-full text-sm h-7 border border-gray-300 rounded-lg cursor-pointer focus:outline-none bg-white"} required>
                         {sensorOptions.map((option) => (
-                            <option key={option.id} value={option.id}>{option.name}</option>
+                            <option key={option.id}>{option.name}</option>
                         ))}
                     </select>
                 </div>
