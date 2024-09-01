@@ -33,6 +33,7 @@ export const DeleteButton: React.FC<DeleteButtonProps> = ({ endpoint }) => {
         try {
             const response = await axios.delete(endpoint);
             console.log("Delete successful:", response.data);
+            window.location.reload();
         } catch (error) {
             console.error("Error deleting:", error);
         }

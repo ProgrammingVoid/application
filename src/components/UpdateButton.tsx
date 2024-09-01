@@ -14,21 +14,18 @@
  */
 import React from "react";
 import { RiEditLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
 
 interface UpdateButtonProps {
-    route: string;
+    handleUpdate: () => void;
 }
 
 /**
- * Button to navigate to the update page
- * @param route - The update route to navigate to, e.g. "/updateplant"
+ * Button to trigger the update function
+ * @param handleUpdate - The function to call when the button is clicked
  */
-export const UpdateButton: React.FC<UpdateButtonProps> = ({ route }) => {
-    const navigate = useNavigate();
-
+export const UpdateButton: React.FC<UpdateButtonProps> = ({ handleUpdate }) => {
     const handleClick = () => {
-        navigate(route);
+        handleUpdate();
     };
 
     return (
