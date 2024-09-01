@@ -21,6 +21,10 @@ interface DeleteButtonProps {
     endpoint: string;
 }
 
+/**
+ * Button to delete an object
+ * @param endpoint - The endpoint to send the delete request to
+ */
 export const DeleteButton: React.FC<DeleteButtonProps> = ({ endpoint }) => {
     const [showConfirm, setShowConfirm] = useState(false);
 
