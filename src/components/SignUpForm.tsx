@@ -12,15 +12,16 @@
  *   - Quentin Surdez
  *   - Rachel Tranchida
  */
-
 import React, {useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 import {API_URL, USER_URL} from "../constants";
 
 function SignUpForm() {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
@@ -35,7 +36,10 @@ function SignUpForm() {
         console.log(JSON.stringify(newUser));
 
         axios.post(API_URL + USER_URL, newUser)
-            .then((response: any) => console.log(response))
+            .then((response: any) => {
+                console.log(response);
+                navigate("/login");
+            })
             .catch((error: any) => console.error('Error:', error));
     };
 
