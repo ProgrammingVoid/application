@@ -1,12 +1,13 @@
 import React from 'react'
 import LoginForm from "../components/LoginForm";
+import AuthNavbar from "../components/AuthNavbar";
 function Login() {
     return (
         <div>
-            <h1>
-                This is Login page
-            </h1>
-            <LoginForm/>
+            <AuthNavbar/>
+            <div className="flex justify-center items-center mt-32">
+                <LoginForm/>
+            </div>
         </div>
     )
 }
