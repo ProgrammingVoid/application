@@ -71,3 +71,15 @@ export interface User {
     sensor: Sensor[];
     plants: UserPlant[];
 }
+
+export interface SensorLinkedToPlant {
+    sensorId: number;
+    sensorName: string;
+    sensorRemark: string;
+    remark: string;
+    plantName: string | null;
+    plantId: number | null;
+    sensorHumidity: number | null;
+    sensorLight: number | null;
+    sensorTemperature: number | null;
+}
