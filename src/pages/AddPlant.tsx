@@ -5,7 +5,6 @@ import {API_URL, GENERAL_PLANTS_URL, USER_SENSOR_LINKED_PLANTS} from "../constan
 import AuthNavbar from "../components/AuthNavbar";
 import {GeneralPlant, SensorInfo, SensorLinkedToPlant} from "../types";
 import Cookies from "js-cookie";
-import SensorForm from "../components/SensorForm";
 
 function AddPlant() {
     const [sensorInfos, setSensorInfos] = useState<SensorInfo[]>([]);

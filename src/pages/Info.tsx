@@ -30,7 +30,7 @@ function Info() {
 
     useEffect(() => {
         if (plant) {
-            const response = axios.get(API_URL + GENERAL_PLANTS_URL + "/" + plant.generalPlantId,
+            axios.get(API_URL + GENERAL_PLANTS_URL + "/" + plant.generalPlantId,
                 {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
                 .then((response) => {
                     const generalPlant = response.data;
