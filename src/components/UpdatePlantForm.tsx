@@ -1,4 +1,17 @@
-// src/components/UpdatePlantForm.tsx
+/**
+ * Project Name: PlantKeeper
+ *
+ * @created 01-09-2024
+ * @file UpdatePlantForm.tsx
+ * @version 1.0.0
+ * @see https://github.com/Plant-keeper
+ *
+ * @authors
+ *   - Rafael Dousse
+ *   - Eva Ray
+ *   - Quentin Surdez
+ *   - Rachel Tranchida
+ */
 import React, {useState, useEffect} from "react";
 import {API_URL, PLANT_URL} from "../constants";
 import {GeneralPlant, SensorInfo} from "../types";
