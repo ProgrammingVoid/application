@@ -41,6 +41,7 @@ export interface Plant {
  * GeneralPlant interface made to match the API response when fetching a general plant
  */
 export interface GeneralPlant extends Plant {
+    type: string;
     humidity: string | null;
     ambientHumidity: string | null;
     light: string | null;
@@ -48,6 +49,7 @@ export interface GeneralPlant extends Plant {
     temperatureMax: string | null;
     description: string;
     plants: Plant[];
+
 }
 
 /**
