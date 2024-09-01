@@ -1,12 +1,14 @@
 import React from 'react'
 import SensorForm from "../components/SensorForm";
+import AuthNavbar from "../components/AuthNavbar";
 function AddSensor() {
     return (
         <div>
-            <h1>
-                This is sensor page
-            </h1>
-            <SensorForm/>
+            <AuthNavbar/>
+
+            <div className={"flex flex-row justify-center mt-36"}>
+                <SensorForm/>
+            </div>
         </div>
     )
 }
