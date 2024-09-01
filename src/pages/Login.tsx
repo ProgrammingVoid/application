@@ -1,12 +1,17 @@
 import React from 'react'
 import LoginForm from "../components/LoginForm";
+import NotAuthNavbar from "../components/NotAuthNavbar";
 function Login() {
     return (
-        <div>
-            <h1>
-                This is Login page
-            </h1>
-            <LoginForm/>
+        <div className="min-h-screen w-full flex flex-col items-center">
+            <div className="w-full">
+                <NotAuthNavbar/>
+            </div>
+            <div className="flex flex-col items-center justify-center flex-grow min-h-0">
+                <div className="m-14 flex flex-col justify-center items-center w-full h-full">
+                    <LoginForm></LoginForm>
+                </div>
+            </div>
         </div>
     )
 }
