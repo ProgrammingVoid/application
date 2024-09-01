@@ -22,3 +22,5 @@ export const USER_PLANTS_URL = USER_URL + PLANT_URL;
 export const LOGIN_URL = "/auth/login";
 export const REGISTER_URL = "/register";
 export const GENERAL_PLANTS_URL = "/general-plants";
+export const USER_SENSOR_LINKED_PLANTS = USER_SENSORS_URL + "/linkedPlant";
+
