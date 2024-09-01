@@ -27,6 +27,7 @@ import Logout from "../pages/Logout";
 import Sensors from "../pages/Sensors";
 import UpdatePlant from "../pages/UpdatePlant";
 import UpdateSensor from "../pages/UpdateSensor";
+import UpdateProfile from "../pages/UpdateProfile";
 
 const Routes = () => {
     const { token } = useAuth();
@@ -76,6 +77,10 @@ const Routes = () => {
                 {
                     path: 'updatesensor',
                     element : <UpdateSensor />
+                },
+                {
+                    path: 'updateprofile',
+                    element : <UpdateProfile />
                 }
             ],
         },
