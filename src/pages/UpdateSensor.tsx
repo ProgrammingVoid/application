@@ -14,7 +14,6 @@
  */
 import React from "react";
 import AuthNavbar from "../components/AuthNavbar";
-import SensorForm from "../components/SensorForm";
 import UpdateSensorForm from "../components/UpdateSensorForm";
 import {useLocation} from "react-router-dom";
 
