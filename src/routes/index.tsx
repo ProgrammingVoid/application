@@ -25,6 +25,8 @@ import Info from "../pages/Info";
 import Login from "../pages/Login";
 import Logout from "../pages/Logout";
 import Sensors from "../pages/Sensors";
+import UpdatePlant from "../pages/UpdatePlant";
+import UpdateSensor from "../pages/UpdateSensor";
 
 const Routes = () => {
     const { token } = useAuth();
@@ -66,6 +68,14 @@ const Routes = () => {
                 {
                     path: '/logout',
                     element: <Logout />,
+                },
+                {
+                    path: '/updateplant',
+                    element: <UpdatePlant />,
+                },
+                {
+                    path: 'updatesensor',
+                    element : <UpdateSensor />
                 }
             ],
         },
