@@ -12,28 +12,18 @@
  *   - Quentin Surdez
  *   - Rachel Tranchida
  */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import AuthNavbar from "../components/AuthNavbar";
 import RoundedButton from "../components/RoundedButton";
 import PlantDescription from "../components/PlantDescription";
 import Cookies from 'js-cookie';
 import {API_URL, USER_PLANTS_URL} from "../constants";
-
-interface Plant {
-    id: number;
-    name: string;
-    remark: string;
-    humidity: string | null;
-    light: string | null;
-    temperature: string | null;
-    createdAt: string;
-    updatedAt: string;
-}
+import {UserPlant} from "../types";
 
 function Plants() {
-    const [plants, setPlants] = useState<Plant[]>([]);
+    const [plants, setPlants] = useState<UserPlant[]>([]);
     const navigate = useNavigate();
 
     const handleAddPlantClick = () => {
@@ -41,9 +31,12 @@ function Plants() {
     }
 
     const getPlants = useCallback(() => {
-        axios.get(API_URL + USER_PLANTS_URL, { headers: { Authorization: `Bearer ${Cookies.get('token')}` } })
-            .then((response) => {const userData = response.data; setPlants(userData);})
-            .catch( error => console.error(error));
+        axios.get(API_URL + USER_PLANTS_URL, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
+            .then((response) => {
+                const userData = response.data;
+                setPlants(userData);
+            })
+            .catch(error => console.error(error));
     }, []);
 
     useEffect(() => {
@@ -64,8 +57,9 @@ function Plants() {
                 {plants.map(plant => (
                     <div key={plant.id} className="mb-8">
                         <PlantDescription image={require("../figures/calathea.png")} name={plant.name}
-                                          description={plant.remark} plantState={0} humidity={plant.humidity}
-                                          light={plant.light} temperature={plant.temperature} temperatureOk={true}
+                                          description={plant.remark} plantState={0} humidity={plant.sensor.humidity}
+                                          light={plant.sensor.light} temperature={plant.sensor.temperature}
+                                          temperatureOk={true}
                                           humidityOk={true} lightOk={true} plantId={plant.id}></PlantDescription>
                     </div>
                 ))}
