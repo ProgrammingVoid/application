@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {useLocation} from "react-router-dom";
 import AuthNavbar from "../components/AuthNavbar";
 import axios from "axios";
-import {API_URL} from "../constants";
+import {API_URL, GENERAL_PLANTS_URL, PLANT_URL} from "../constants";
 import Cookies from "js-cookie";
 import PlantInformation from "../components/PlantInformation";
 import {GeneralPlant} from "../types";
@@ -16,7 +16,7 @@ function Info() {
     const [generalPlant, setGeneralPlant] = useState<Omit<GeneralPlant, 'plants'> | null>(null);
 
     const getPlant = useCallback(() => {
-        axios.get(API_URL + "/plants/" + plantId, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
+        axios.get(API_URL + PLANT_URL + "/" + plantId, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
             .then((response) => {
                 const plantData = response.data;
                 setPlant(plantData);
@@ -24,41 +24,18 @@ function Info() {
             .catch(error => console.error(error));
     }, [plantId]);
 
-    /**
-     * Get the general plant information by type (without the plants array)
-     * @param type the type of the plant
-     */
-    async function getGeneralPlantByType(type: string): Promise<Omit<GeneralPlant, 'plants'> | null> {
-        try {
-            const response = await axios.get('http://localhost:4000/api/v1/general-plants/');
-            const generalPlants: GeneralPlant[] = response.data;
-
-            const generalPlant = generalPlants.find(plant => plant.type === type);
-            if (!generalPlant) {
-                return null;
-            }
-
-            const {plants, ...generalPlantWithoutPlants} = generalPlant;
-            console.log(generalPlantWithoutPlants);
-            return generalPlantWithoutPlants;
-        } catch (error) {
-            console.error('Error fetching general plants:', error);
-            return null;
-        }
-    }
-
     useEffect(() => {
         getPlant();
     }, [getPlant]);
 
     useEffect(() => {
         if (plant) {
-            getGeneralPlantByType(plant.type).then(data => setGeneralPlant(data));
-            /*const response = axios.get('http://localhost:4000/api/v1/general-plants/5')
-            .then((response) => {
-                const generalPlant = response.data;
-                setGeneralPlant(generalPlant);
-            }) petit exemple pour voir comment ça rend*/
+            const response = axios.get(API_URL + GENERAL_PLANTS_URL + "/" + plant.generalPlantId,
+                {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
+                .then((response) => {
+                    const generalPlant = response.data;
+                    setGeneralPlant(generalPlant);
+                });
         }
     }, [plant]);
 
@@ -69,7 +46,7 @@ function Info() {
                 <div className="flex flex-row mb-8">
                     <img src={require("../figures/calathea.png")/*plant?.image*/} className="mr-12 border-2"
                          alt="calathea"/>
-                    <PlantInformation name={plant?.name} type={plant?.type} humidity={plant?.sensor?.humidity}
+                    <PlantInformation name={plant?.name} type={generalPlant?.type} humidity={plant?.sensor?.humidity}
                                       light={plant?.sensor?.light} temperature={plant?.sensor?.temperature}
                                       optimalHumidity={generalPlant?.humidity} optimalLight={generalPlant?.light}
                                       optimalTemperature={generalPlant?.temperatureMax}/>
