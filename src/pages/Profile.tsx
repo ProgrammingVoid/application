@@ -30,7 +30,6 @@ function Profile() {
         axios.get(API_URL + USER_ME_URL, {
             headers: {Authorization: `Bearer ${Cookies.get('token')}`}
         }).then((response) => {
-            setUsername(response.data.username);
             setEmail(response.data.email);
             setRole(response.data.role);
             setCreatedAt(response.data.createdAt);
