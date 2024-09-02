@@ -13,7 +13,7 @@
  *   - Rachel Tranchida
  */
 
-export const SERVER_URL = "http://localhost:4000";
+export const SERVER_URL = "http://backend-phi-drab-76.vercel.app";
 export const API_URL = SERVER_URL + "/api/v1";
 export const PLANT_URL = "/plants";
 export const USER_URL = "/users";
