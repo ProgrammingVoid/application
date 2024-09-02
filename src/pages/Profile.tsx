@@ -21,7 +21,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 function Profile() {
-    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("");
     const [createdAt, setCreatedAt] = useState("");
