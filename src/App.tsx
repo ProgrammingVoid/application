@@ -27,6 +27,19 @@ function App() {
     document.head.appendChild(link);
   }, []);
 
+  // Set the favicon of the page
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.href = require("./figures/icon.png");
+    document.head.appendChild(link);
+  }, []);
+
+  // Set the title of the page
+  useEffect(() => {
+    document.title = "PlantKeeper";
+  }, []);
+
   return (
       <AuthProvider>
         <Routes />
