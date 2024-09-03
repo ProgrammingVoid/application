@@ -59,9 +59,9 @@ function Plants() {
                         <PlantDescription image={require("../figures/" + plant.generalPlantImage)} name={plant.plantName}
                                           description={plant.plantRemark} humidity={plant.sensorHumidity !== null ? String(plant.sensorHumidity) : null}
                                           light={plant.sensorLight !== null ? String(plant.sensorLight) : null} temperature={plant.sensorTemperature !== null ? String(plant.sensorTemperature) : null}
-                                          temperatureOk={(plant.sensorTemperature < plant.generalPlantTemperatureMax) && (plant.sensorTemperature > plant.generalPlantTemperatureMin) || (plant.sensorTemperature === null)}
-                                          humidityOk={(plant.sensorHumidity > plant.generalPlantHumidityMin) && (plant.sensorHumidity < plant.generalPlantHumidityMax) || (plant.sensorHumidity === null)}
-                                          lightOk={(plant.sensorLight > plant.generalPlantLightMin) && (plant.sensorLight < plant.generalPlantLightMax) || (plant.sensorLight === null)}
+                                          temperatureOk={((plant.sensorTemperature < plant.generalPlantTemperatureMax) && (plant.sensorTemperature > plant.generalPlantTemperatureMin)) || (plant.sensorTemperature === null)}
+                                          humidityOk={((plant.sensorHumidity > plant.generalPlantHumidityMin) && (plant.sensorHumidity < plant.generalPlantHumidityMax)) || (plant.sensorHumidity === null)}
+                                          lightOk={((plant.sensorLight > plant.generalPlantLightMin) && (plant.sensorLight < plant.generalPlantLightMax)) || (plant.sensorLight === null)}
                                           plantId={plant.plantId}></PlantDescription>
                     </div>
                 ))}
