@@ -19,7 +19,7 @@ import AuthNavbar from "../components/AuthNavbar";
 import RoundedButton from "../components/RoundedButton";
 import PlantDescription from "../components/PlantDescription";
 import Cookies from 'js-cookie';
-import {API_URL, USER_PLANTS_LINKED_GENERAL_PLANTS, USER_PLANTS_URL} from "../constants";
+import {API_URL, USER_PLANTS_LINKED_GENERAL_PLANTS} from "../constants";
 import {UserPlantLinkedToGeneralPlant} from "../types";
 
 function Plants() {
