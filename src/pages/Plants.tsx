@@ -19,11 +19,11 @@ import AuthNavbar from "../components/AuthNavbar";
 import RoundedButton from "../components/RoundedButton";
 import PlantDescription from "../components/PlantDescription";
 import Cookies from 'js-cookie';
-import {API_URL, USER_PLANTS_URL} from "../constants";
-import {UserPlant} from "../types";
+import {API_URL, USER_PLANTS_LINKED_GENERAL_PLANTS, USER_PLANTS_URL} from "../constants";
+import {UserPlantLinkedToGeneralPlant} from "../types";
 
 function Plants() {
-    const [plants, setPlants] = useState<UserPlant[]>([]);
+    const [plants, setPlants] = useState<UserPlantLinkedToGeneralPlant[]>([]);
     const navigate = useNavigate();
 
     const handleAddPlantClick = () => {
@@ -31,7 +31,7 @@ function Plants() {
     }
 
     const getPlants = useCallback(() => {
-        axios.get(API_URL + USER_PLANTS_URL, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
+        axios.get(API_URL + USER_PLANTS_LINKED_GENERAL_PLANTS, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
             .then((response) => {
                 const userData = response.data;
                 setPlants(userData);
@@ -55,12 +55,14 @@ function Plants() {
             </div>
             <div className="mx-12">
                 {plants.map(plant => (
-                    <div key={plant.id} className="mb-8">
-                        <PlantDescription image={require("../figures/calathea.png")} name={plant.name}
-                                          description={plant.remark} plantState={0} humidity={plant.sensor.humidity}
-                                          light={plant.sensor.light} temperature={plant.sensor.temperature}
-                                          temperatureOk={true}
-                                          humidityOk={true} lightOk={true} plantId={plant.id}></PlantDescription>
+                    <div key={plant.plantId} className="mb-8">
+                        <PlantDescription image={require("../figures/" + plant.generalPlantImage)} name={plant.plantName}
+                                          description={plant.plantRemark} humidity={plant.sensorHumidity !== null ? String(plant.sensorHumidity) : null}
+                                          light={plant.sensorLight !== null ? String(plant.sensorLight) : null} temperature={plant.sensorTemperature !== null ? String(plant.sensorTemperature) : null}
+                                          temperatureOk={(plant.sensorTemperature < plant.generalPlantTemperatureMax) && (plant.sensorTemperature > plant.generalPlantTemperatureMin) || (plant.sensorTemperature === null)}
+                                          humidityOk={(plant.sensorHumidity > plant.generalPlantHumidityMin) && (plant.sensorHumidity < plant.generalPlantHumidityMax) || (plant.sensorHumidity === null)}
+                                          lightOk={(plant.sensorLight > plant.generalPlantLightMin) && (plant.sensorLight < plant.generalPlantLightMax) || (plant.sensorLight === null)}
+                                          plantId={plant.plantId}></PlantDescription>
                     </div>
                 ))}
             </div>

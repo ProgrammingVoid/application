@@ -21,12 +21,7 @@ import {Types} from "../types";
 import {LuDroplet} from "react-icons/lu";
 import {FiSun} from "react-icons/fi";
 import {FaTemperatureHalf} from "react-icons/fa6";
-// smiling smiley
-import {PiSmiley} from "react-icons/pi";
-// straight face smiley
-import {PiSmileyMeh} from "react-icons/pi";
-// frwoning smiley
-import {PiSmileySad} from "react-icons/pi";
+import {PiSmiley, PiSmileyMeh, PiSmileySad} from "react-icons/pi";
 import {UpdateButton} from "./UpdateButton";
 import {DeleteButton} from "./DeleteButton";
 import {API_URL, PLANT_URL} from "../constants";
@@ -39,13 +34,9 @@ interface PlantDescriptionProps {
     humidity: string | null;
     light: string | null;
     temperature: string | null;
-    // true if the humidity of the plant is good, false otherwise
     humidityOk: boolean;
-    // true if the light of the plant is good, false otherwise
     lightOk: boolean;
-    // true if the temperature of the room is good, false otherwise
     temperatureOk: boolean;
-    plantState: Types;
 }
 
 const PlantDescription: React.FC<PlantDescriptionProps> = ({
@@ -58,8 +49,7 @@ const PlantDescription: React.FC<PlantDescriptionProps> = ({
                                                                temperature,
                                                                humidityOk,
                                                                lightOk,
-                                                               temperatureOk,
-                                                               plantState
+                                                               temperatureOk
                                                            }) => {
 
     const navigate = useNavigate();
@@ -70,15 +60,29 @@ const PlantDescription: React.FC<PlantDescriptionProps> = ({
         navigate("/updateplant", {state: {plantId: plantId}});
     }
 
-    // get the icon corresponding to the plant state
+    const calculatePlantState = () => {
+        const conditions = [humidityOk, lightOk, temperatureOk];
+        const falseCount = conditions.filter(condition => !condition).length;
+
+        if (falseCount === 0) {
+            return Types.HEALTHY;
+        } else if (falseCount === 1) {
+            return Types.KEEP_AN_EYE;
+        } else {
+            return Types.NEEDS_ATTENTION;
+        }
+    };
+
+    const plantState = calculatePlantState();
+
     const getPlantStateIcon = () => {
         switch (plantState) {
             case Types.HEALTHY:
-                return <PiSmiley/>;
+                return <PiSmiley className="text-green-700" />;
             case Types.KEEP_AN_EYE:
-                return <PiSmileyMeh/>;
+                return <PiSmileyMeh className="text-orange-700" />;
             case Types.NEEDS_ATTENTION:
-                return <PiSmileySad/>;
+                return <PiSmileySad className="text-red-700" />;
             default:
                 return null;
         }
@@ -104,17 +108,17 @@ const PlantDescription: React.FC<PlantDescriptionProps> = ({
                     <RoundedButton text="More info" textColor="text-black" bgColor="bg-gray-300" onClick={handleMoreInfoClick} />
                     <div className="flex flex-row items-center text-2xl">
                         <LuDroplet className={`mx-2 ${humidityOk ? 'text-black' : 'text-red-500'}`} />
-                        <p>{humidity}%</p>
+                        <p>{humidity !== null ? `${humidity}%` : '-'}</p>
                     </div>
                     <div className="flex flex-row items-center text-2xl">
                         <FiSun className={`mx-2 ${lightOk ? 'text-black' : 'text-red-500'}`} />
-                        <p>{light} UV</p>
+                        <p>{light !== null ? `${light} UV` : '-'}</p>
                     </div>
                     <div className="flex flex-row items-center text-2xl">
                         <FaTemperatureHalf className={`mx-2 ${temperatureOk ? 'text-black' : 'text-red-500'}`} />
-                        <p>{temperature}°</p>
+                        <p>{temperature !== null ? `${temperature}°` : '-'}</p>
                     </div>
-                    <div className="flex flex-row items-center text-5xl">
+                    <div className="flex flex-row items-center text-6xl">
                         {getPlantStateIcon()}
                     </div>
                 </div>
