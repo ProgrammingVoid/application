@@ -24,7 +24,6 @@ import {UserPlantLinkedToGeneralPlant} from "../types";
 
 function Plants() {
     const [plants, setPlants] = useState<UserPlantLinkedToGeneralPlant[]>([]);
-    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const handleAddPlantClick = () => {
@@ -36,7 +35,6 @@ function Plants() {
             .then((response) => {
                 const userData = response.data;
                 setPlants(userData);
-                setLoading(false);
             })
             .catch(error => console.error(error));
     }, []);
@@ -44,10 +42,6 @@ function Plants() {
     useEffect(() => {
         getPlants();
     }, [getPlants]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <div className="flex flex-col">
