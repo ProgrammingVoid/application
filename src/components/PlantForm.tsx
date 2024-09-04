@@ -12,7 +12,7 @@
  *   - Quentin Surdez
  *   - Rachel Tranchida
  */
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import {API_URL, USER_PLANTS_URL} from "../constants";
 import {GeneralPlant, SensorInfo} from "../types";
@@ -28,14 +28,10 @@ interface PlantFormProps {
 function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
     const navigate = useNavigate();
     const [name, setName] = useState("");
-    const [plantType, setPlantType] = useState<number | null>(null);
-    const [selectedSensorId, setSelectedSensorId] = useState<number | null>(null);
+    const [plantType, setPlantType] = useState<number>(plantTypeOptions[0]?.id);
+    const [selectedSensorId, setSelectedSensorId] = useState<number>(sensorOptions[0]?.id);
     const [remark, setRemark] = useState("");
 
-    useEffect(() => {
-        setPlantType(plantTypeOptions.length > 0 ? plantTypeOptions[0].id : null);
-        setSelectedSensorId(sensorOptions.length > 0 ? sensorOptions[0].id : null);
-    }, [plantTypeOptions, sensorOptions]);
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
@@ -67,7 +63,7 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
                     <select  onChange={(e) => setPlantType(parseInt(e.target.value))}
                             className={"block w-full text-sm text-gray-900 border border-gray-300 h-7 rounded-lg cursor-pointer focus:outline-none bg-white"} required>
                         {plantTypeOptions.map((option) => (
-                            <option key={option.id}>{option.type}</option>
+                            <option key={option.id} value={option.id}>{option.type}</option>
                         ))}
                     </select >
 
@@ -83,7 +79,7 @@ function PlantForm({plantTypeOptions, sensorOptions}: PlantFormProps) {
                     <select onChange={(e) => setSelectedSensorId(parseInt(e.target.value))}
                             className={"block w-full text-sm h-7 border border-gray-300 rounded-lg cursor-pointer focus:outline-none bg-white"} required>
                         {sensorOptions.map((option) => (
-                            <option key={option.id}>{option.name}</option>
+                            <option key={option.id} value={option.id}>{option.name}</option>
                         ))}
                     </select>
                 </div>
