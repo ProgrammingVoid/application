@@ -29,6 +29,7 @@ interface ConditionsProps {
     temperature: string | undefined | null;
 }
 
+// Update Conditions component to handle null values
 const Conditions: React.FC<ConditionsProps> = ({
                                                    title,
                                                    humidity,
@@ -41,15 +42,15 @@ const Conditions: React.FC<ConditionsProps> = ({
             <div className="flex flex-row items-center justify-between float-left w-full">
                 <div className="flex items-center text-2xl">
                     <LuDroplet className="text-4xl"/>
-                    <p className="ml-2 text-2xl" style={{fontFamily: 'jura'}}>{humidity}%</p>
+                    <p className="ml-2 text-2xl" style={{fontFamily: 'jura'}}>{humidity !== null ? `${humidity}` : '-'}%</p>
                 </div>
                 <div className="flex flex-row items-center text-2xl">
                     <FiSun className="text-4xl"/>
-                    <p className="ml-2 text-2xl" style={{fontFamily: 'jura'}}>{light} LUX</p>
+                    <p className="ml-2 text-2xl" style={{fontFamily: 'jura'}}>{light !== null ? `${light}` : '-'} LUX</p>
                 </div>
                 <div className="flex flex-row items-center text-2xl">
                     <FaTemperatureHalf className="text-4xl"/>
-                    <p className="ml-2 text-2xl" style={{fontFamily: 'jura'}}>{temperature}°</p>
+                    <p className="ml-2 text-2xl" style={{fontFamily: 'jura'}}>{temperature !== null ? `${temperature}` : '-'}°C</p>
                 </div>
             </div>
         </div>

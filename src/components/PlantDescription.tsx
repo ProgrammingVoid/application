@@ -112,11 +112,11 @@ const PlantDescription: React.FC<PlantDescriptionProps> = ({
                     </div>
                     <div className="flex flex-row items-center text-2xl">
                         <FiSun className={`mx-2 ${lightOk ? 'text-black' : 'text-red-500'}`} />
-                        <p>{light !== null ? `${light} UV` : '-'}</p>
+                        <p>{light !== null ? `${light} LUX` : '-'}</p>
                     </div>
                     <div className="flex flex-row items-center text-2xl">
                         <FaTemperatureHalf className={`mx-2 ${temperatureOk ? 'text-black' : 'text-red-500'}`} />
-                        <p>{temperature !== null ? `${temperature}°` : '-'}</p>
+                        <p>{temperature !== null ? `${temperature}°C` : '-'}</p>
                     </div>
                     <div className="flex flex-row items-center text-6xl">
                         {getPlantStateIcon()}
