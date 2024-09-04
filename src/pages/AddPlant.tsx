@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 function AddPlant() {
     const [sensorInfos, setSensorInfos] = useState<SensorInfo[]>([]);
     const [plantTypes, setPlantTypes] = useState<GeneralPlant[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -16,12 +17,27 @@ function AddPlant() {
             .then((response) => {
                 const sensors = response.data
                 console.log(sensors)
-                setSensorInfos(sensors.filter((sensor: SensorLinkedToPlant) => sensor.plantId === null).map((sensor: SensorLinkedToPlant) => ({id: sensor.sensorId, name: sensor.sensorName})));
+                setSensorInfos(sensors.filter((sensor: SensorLinkedToPlant) => sensor.plantId === null).map((sensor: SensorLinkedToPlant) => ({
+                    id: sensor.sensorId,
+                    name: sensor.sensorName
+                })));
             })
         axios.get(API_URL + GENERAL_PLANTS_URL)
-            .then((response) => setPlantTypes(response.data))
+            .then((response) => {
+                setPlantTypes(response.data)
+                setLoading(false);
+            })
             .catch(error => console.error(error));
     }, []);
+
+    if(loading) {
+        return (
+            <div className="h-full w-full flex justify-center items-center">
+                <p>Loading...</p>
+            </div>
+        )
+    }
+
     return (
         <div className="min-h-screen w-full flex flex-col items-center">
             <div className="w-full">
