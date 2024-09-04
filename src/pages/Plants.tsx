@@ -45,6 +45,10 @@ function Plants() {
         getPlants();
     }, [getPlants]);
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div className="flex flex-col">
             <AuthNavbar></AuthNavbar>
