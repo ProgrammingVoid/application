@@ -10,7 +10,7 @@ function AddPlant() {
     const [sensorInfos, setSensorInfos] = useState<SensorInfo[]>([]);
     const [plantTypes, setPlantTypes] = useState<GeneralPlant[]>([]);
     const [loading, setLoading] = useState(true);
-
+    const [loading2, setLoading2] = useState(true);
     useEffect(() => {
 
         axios.get(API_URL + USER_SENSOR_LINKED_PLANTS, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
@@ -21,6 +21,8 @@ function AddPlant() {
                     id: sensor.sensorId,
                     name: sensor.sensorName
                 })));
+
+                setLoading2(false);
             })
         axios.get(API_URL + GENERAL_PLANTS_URL)
             .then((response) => {
@@ -30,7 +32,7 @@ function AddPlant() {
             .catch(error => console.error(error));
     }, []);
 
-    if(loading) {
+    if(loading || loading2) {
         return (
             <div className="h-full w-full flex justify-center items-center">
                 <p>Loading...</p>
