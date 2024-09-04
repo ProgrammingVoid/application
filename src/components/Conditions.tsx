@@ -45,7 +45,7 @@ const Conditions: React.FC<ConditionsProps> = ({
                 </div>
                 <div className="flex flex-row items-center text-2xl">
                     <FiSun className="text-4xl"/>
-                    <p className="ml-2 text-2xl" style={{fontFamily: 'jura'}}>{light}UV</p>
+                    <p className="ml-2 text-2xl" style={{fontFamily: 'jura'}}>{light} LUX</p>
                 </div>
                 <div className="flex flex-row items-center text-2xl">
                     <FaTemperatureHalf className="text-4xl"/>

@@ -25,14 +25,20 @@ interface PlantInformationProps {
     humidity: string | undefined | null;
     // light of the plant
     light: string | undefined | null;
-    // temperature of the plant
+    // temperature of the room where the plant is
     temperature: string | undefined | null;
-    // optimal humidity of the plant
-    optimalHumidity: string | undefined | null;
-    // optimal light of the plant
-    optimalLight: string | undefined | null;
-    // optimal temperature of the plant
-    optimalTemperature: string | undefined | null;
+    // humidity min of the plant
+    humidityMin: string | undefined | null;
+    // humidity max of the plant
+    humidityMax: string | undefined | null;
+    // light min of the plant
+    lightMin: string | undefined | null;
+    // light max of the plant
+    lightMax: string | undefined | null;
+    // temperature min of the plant
+    temperatureMin: string | undefined | null;
+    // temperature max of the plant
+    temperatureMax: string | undefined | null;
 }
 
 const PlantInformation: React.FC<PlantInformationProps> = ({
@@ -41,16 +47,25 @@ const PlantInformation: React.FC<PlantInformationProps> = ({
                                                                humidity,
                                                                light,
                                                                temperature,
-                                                               optimalHumidity,
-                                                               optimalLight,
-                                                               optimalTemperature
+                                                               humidityMin,
+                                                               humidityMax,
+                                                               lightMin,
+                                                               lightMax,
+                                                               temperatureMin,
+                                                               temperatureMax,
                                                            }) => {
+    const optimalHumidity = humidityMin && humidityMax ? `${humidityMin}-${humidityMax}` : "loading...";
+    const optimalLight = lightMin && lightMax ? `${lightMin}-${lightMax}` : "loading...";
+    const optimalTemperature = temperatureMin && temperatureMax ? `${temperatureMin}-${temperatureMax}` : "loading...";
+
     return (
         <div className="flex flex-col items-start justify-between w-full">
             <h1 className="text-5xl m-2 italic" style={{fontFamily: 'judson'}}>
                 {name} ({type})
             </h1>
-            <Conditions title="Current conditions" humidity={humidity} light={light} temperature={temperature}/>
+            <Conditions title="Current conditions" humidity={humidity !== null ? `${humidity}%` : '-'}
+                        light={light !== null ? `${light} UV` : '-'}
+                        temperature={temperature !== null ? `${temperature}°` : '-'}/>
             <Conditions title="Optimal conditions" humidity={optimalHumidity} light={optimalLight} temperature={optimalTemperature}/>
         </div>
     );

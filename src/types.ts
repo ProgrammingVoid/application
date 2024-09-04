@@ -37,14 +37,17 @@ export interface Plant {
  */
 export interface GeneralPlant extends Plant {
     type: string;
-    humidity: string | null;
-    ambientHumidity: string | null;
-    light: string | null;
+    image: string;
+    humidityMin: string | null;
+    humidityMax: string | null;
+    ambientHumidityMin: string | null;
+    ambientHumidityMax: string | null;
+    lightMin: string | null;
+    lightMax: string | null;
     temperatureMin: string | null;
     temperatureMax: string | null;
     description: string;
     plants: Plant[];
-
 }
 
 /**
@@ -52,6 +55,7 @@ export interface GeneralPlant extends Plant {
  */
 export interface UserPlant extends Plant {
     generalPlantId: number;
+    image: string;
     remark: string;
     name: string
     sensor: Sensor;
@@ -82,4 +86,28 @@ export interface SensorLinkedToPlant {
     sensorHumidity: number | null;
     sensorLight: number | null;
     sensorTemperature: number | null;
+}
+
+export interface UserPlantLinkedToGeneralPlant {
+    plantId: number;
+    plantName: string;
+    plantRemark: string;
+    plantImage: string;
+    plantSensorId: number;
+    sensorHumidity: number;
+    sensorLight: number;
+    sensorTemperature: number;
+    sensorName: string;
+    generalPlantId: number;
+    generalPlantImage: string;
+    generalPlantType: string;
+    generalPlantHumidityMin: number;
+    generalPlantHumidityMax: number;
+    generalPlantAmbientHumidityMin: number;
+    generalPlantAmbientHumidityMax: number;
+    generalPlantLightMin: number;
+    generalPlantLightMax: number;
+    generalPlantTemperatureMin: number;
+    generalPlantTemperatureMax: number;
+    generalPlantDescription: string;
 }

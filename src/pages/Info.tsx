@@ -14,6 +14,7 @@ function Info() {
     const plantId = location.state.plantId;
     const [plant, setPlant] = useState<UserPlant>();
     const [generalPlant, setGeneralPlant] = useState<Omit<GeneralPlant, 'plants'> | null>(null);
+    const [loading, setLoading] = useState(true);
 
     const getPlant = useCallback(() => {
         axios.get(API_URL + PLANT_URL + "/" + plantId, {headers: {Authorization: `Bearer ${Cookies.get('token')}`}})
@@ -35,21 +36,34 @@ function Info() {
                 .then((response) => {
                     const generalPlant = response.data;
                     setGeneralPlant(generalPlant);
+                    setLoading(false);
                 });
         }
     }, [plant]);
+
+    if(loading) {
+        return (
+            <div className="h-full w-full flex justify-center items-center">
+                <p>Loading...</p>
+            </div>
+        )
+    }
 
     return (
         <div className="h-full w-full">
             <AuthNavbar></AuthNavbar>
             <div className="flex flex-col my-8 mx-12">
                 <div className="flex flex-row mb-8">
-                    <img src={require("../figures/calathea.png")/*plant?.image*/} className="mr-12 border-2"
-                         alt="calathea"/>
-                    <PlantInformation name={plant?.name} type={generalPlant?.type} humidity={plant?.sensor?.humidity}
-                                      light={plant?.sensor?.light} temperature={plant?.sensor?.temperature}
-                                      optimalHumidity={generalPlant?.humidity} optimalLight={generalPlant?.light}
-                                      optimalTemperature={generalPlant?.temperatureMax}/>
+                    <img src={require("../figures/" + generalPlant?.image)} className="mr-12 border-2 rounded-md"
+                         alt={generalPlant?.type} width={250} height={250}/>
+                    <PlantInformation name={plant?.name} type={generalPlant?.type}
+                                      humidity={plant?.sensor?.humidity == null ? plant?.sensor?.humidity : null}
+                                      light={plant?.sensor?.light == null ? plant?.sensor?.light : null}
+                                      temperature={plant?.sensor?.temperature == null ? plant?.sensor?.temperature : null}
+                                      humidityMin={generalPlant?.humidityMin} humidityMax={generalPlant?.humidityMax}
+                                      lightMin={generalPlant?.lightMin} lightMax={generalPlant?.lightMax}
+                                      temperatureMin={generalPlant?.temperatureMin}
+                                      temperatureMax={generalPlant?.temperatureMax}/>
                 </div>
                 <div className="text-2xl italic" style={{fontFamily: 'judson'}}>
                     <div className="flex flex-row items-center mb-4">
