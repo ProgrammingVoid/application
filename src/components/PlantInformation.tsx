@@ -57,15 +57,17 @@ const PlantInformation: React.FC<PlantInformationProps> = ({
     const optimalHumidity = humidityMin && humidityMax ? `${humidityMin}-${humidityMax}` : "loading...";
     const optimalLight = lightMin && lightMax ? `${lightMin}-${lightMax}` : "loading...";
     const optimalTemperature = temperatureMin && temperatureMax ? `${temperatureMin}-${temperatureMax}` : "loading...";
+    console.log("light", light);
 
     return (
         <div className="flex flex-col items-start justify-between w-full">
             <h1 className="text-5xl m-2 italic" style={{fontFamily: 'judson'}}>
                 {name} ({type})
             </h1>
-            <Conditions title="Current conditions" humidity={humidity !== null ? `${humidity}%` : '-'}
-                        light={light !== null ? `${light} UV` : '-'}
-                        temperature={temperature !== null ? `${temperature}°` : '-'}/>
+            <Conditions title="Current conditions"
+                        humidity={humidity}
+                        light={light}
+                        temperature={temperature}/>
             <Conditions title="Optimal conditions" humidity={optimalHumidity} light={optimalLight} temperature={optimalTemperature}/>
         </div>
     );

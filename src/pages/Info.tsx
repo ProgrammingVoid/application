@@ -37,6 +37,7 @@ function Info() {
                     const generalPlant = response.data;
                     setGeneralPlant(generalPlant);
                     setLoading(false);
+                    console.log(plant.sensor.light);
                 });
         }
     }, [plant]);
@@ -57,9 +58,9 @@ function Info() {
                     <img src={require("../figures/" + generalPlant?.image)} className="mr-12 border-2 rounded-md"
                          alt={generalPlant?.type} width={250} height={250}/>
                     <PlantInformation name={plant?.name} type={generalPlant?.type}
-                                      humidity={plant?.sensor?.humidity == null ? plant?.sensor?.humidity : null}
-                                      light={plant?.sensor?.light == null ? plant?.sensor?.light : null}
-                                      temperature={plant?.sensor?.temperature == null ? plant?.sensor?.temperature : null}
+                                      humidity={plant?.sensor?.humidity}
+                                      light={plant?.sensor?.light}
+                                      temperature={plant?.sensor?.temperature != null ? String(plant?.sensor?.temperature) : null}
                                       humidityMin={generalPlant?.humidityMin} humidityMax={generalPlant?.humidityMax}
                                       lightMin={generalPlant?.lightMin} lightMax={generalPlant?.lightMax}
                                       temperatureMin={generalPlant?.temperatureMin}
