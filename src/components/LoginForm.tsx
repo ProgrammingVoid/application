@@ -17,10 +17,17 @@ import axios from "axios";
 import {API_URL,  LOGIN_URL} from "../constants";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../provider/authProvider";
+function InvalidCredentials(props: { error: string | null; }) {
+    if (props.error) {
+        return <div className="text-center text-sm text-red-600 m-2">{props.error}</div>
+    }
+    return null;
 
+}
 function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState<string | null>(null);
     const {setToken} = useAuth();
     const navigate = useNavigate();
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
@@ -34,11 +41,13 @@ function LoginForm() {
                 const token = response.data.access_token;
                 setToken(token);
             }).then(() => navigate('/plants'))
-            .catch(error => console.error('Error:', error));
+            .catch(() => setError("Invalid credentials"));
 
     }
     return (
+
         <div className="box-content w-fit h-fit p-4 border border-black rounded-2xl">
+            <InvalidCredentials error={error} />
             <form className="flex max-w-md flex-col gap-4 font-mono font-f" onSubmit={handleSubmit}>
 
                 <label htmlFor="email">Email</label>
